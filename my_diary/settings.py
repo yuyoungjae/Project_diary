@@ -26,11 +26,10 @@ SECRET_KEY = 'django-insecure-uojddz3=yqayco+s9l6ha)^zcpdn052s2n*)cd!8!^99v2j223
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['127.0.0.1','localhost']
 
 
 # Application definition
-# 인증에 사용할 class를 지정
 AUTH_USER_MODEL = 'users.Member'
 
 INSTALLED_APPS = [
@@ -40,8 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'bootstrap4',
-    'users_main.apps.UsersConfigConfig'
+    'diary_main.apps.DiaryMainConfig',
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -59,7 +58,7 @@ ROOT_URLCONF = 'my_diary.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR), 'templates'],
+        'DIRS': [os.path.join(BASE_DIR),'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -83,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'my_diary_db',
         'USER': 'root',
-        'PASSWORD': 'slow120070#',
+        'PASSWORD': 'yu974346!',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }

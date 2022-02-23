@@ -258,7 +258,7 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-# my_diary/settings.py
+my_diary/settings.py
 
 
 # PyCharm

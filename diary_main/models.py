@@ -1,4 +1,5 @@
 from django.db import models
+
 from users.models import Member
 # class 명이 Board이면 만들어지는 실제 table이름 bbs_board가 되요!
 # class는 반드시 장고가 제공하는 class를 상속받아서 만들어야함!
@@ -34,3 +35,6 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.c_content
+
+
+# Create your models here.

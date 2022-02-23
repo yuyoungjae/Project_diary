@@ -30,6 +30,8 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 
 # Application definition
+# 인증에 사용할 class를 지정
+# AUTH_USER_MODEL = 'users.Member'
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -38,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'bootstrap4',
     'diary_main.apps.DiaryMainConfig'
 ]
 

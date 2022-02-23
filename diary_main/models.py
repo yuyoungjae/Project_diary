@@ -1,16 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
-from django.conf import settings
 from users.models import Member
 
+# class명이 Board이면 만들어지는 실제 table 이름은 bbs_board
+# class는 반드시 장고가 제공하는 class를 상속받아서 만들어야 함
+# Database Table이 가지고 있는 각각의 column을
+# class의 class variable응 이용해서 define
 
-class Member(AbstractUser):
-    mobile = models.CharField(max_length=20)
-    image = models.ImageField(upload_to=settings.MEDIA_ROOT,
-                              blank=True,
-                              null=True)
-    nickname = models.CharField(max_length=20,
-                               unique=True)
+# 클래스를 이용해서 Table을 생성하면 자동으로
+# id column이 하나 생성 id column은 Integer, PK, AUTO_INCREMENT
+
 
 class Board(models.Model):
     b_title = models.CharField(max_length=50)  # 글 제목
@@ -27,16 +25,16 @@ class Board(models.Model):
     def __str__(self):
         return self.b_title
 
-    class Comment(models.Model):
-        # c_author = models.CharField(max_length=20)  # 댓글 작성자
-        c_author = models.ForeignKey(Member,
-                                     on_delete=models.CASCADE)
-        c_content = models.CharField(max_length=100)  # 댓글 내용
-        # board라는 class variable은 실제 table이 생성되면
-        # board_id라는 이름의 column으로 생성되고 ForeignKey로 설정
-        board = models.ForeignKey(Board,
-                                  on_delete=models.CASCADE)
 
-        def __str__(self):
-            return self.c_content
+class Comment(models.Model):
+    # c_author = models.CharField(max_length=20)  # 댓글 작성자
+    c_author = models.ForeignKey(Member,
+                                 on_delete=models.CASCADE)
+    c_content = models.CharField(max_length=100)  # 댓글 내용
+    # board라는 class variable은 실제 table이 생성되면
+    # board_id라는 이름의 column으로 생성되고 ForeignKey로 설정
+    board = models.ForeignKey(Board,
+                              on_delete=models.CASCADE)
 
+    def __str__(self):
+        return self.c_content

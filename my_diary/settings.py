@@ -41,7 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'diary_main.apps.DiaryMainConfig',
     'users.apps.UsersConfig',
-    'diary_main.apps.DiaryMainConfig'
+    'bootstrap4'
 ]
 
 MIDDLEWARE = [

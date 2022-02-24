@@ -82,7 +82,11 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'my_diary_db',
         'USER': 'root',
+<<<<<<< HEAD
         'PASSWORD': 'whwotjd123',
+=======
+        'PASSWORD': 'yu974346!',
+>>>>>>> 54bf2f8 (first commit)
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }

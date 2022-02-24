@@ -9,6 +9,11 @@
 <!--    <meta name="generator" content="Hugo 0.88.1">-->
     <title>Carousel Template · Bootstrap v5.1</title>
 
+    <!-- 구글 폰트 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
+
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/carousel/">
 
     <!-- jQuery CDN -->
@@ -29,6 +34,10 @@
 
 
     <style>
+        /* font family 수정하기 */
+        .logo_font{font-family: 'Hi Melody', cursive;}
+        p{font-family: 'Hi Melody', cursive;}
+
         .bd-placeholder-img {
             font-size: 1.125rem;
             text-anchor: middle;
@@ -84,11 +93,7 @@
 <main>
 
     <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators">
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-            <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        </div>
+
         <div class="carousel-inner">
             <div class="carousel-item active">
 <!--                <svg class="bd-placeholder-img" width="100" height="100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"><rect width="100%" height="100%" fill="#777"/>-->
@@ -97,8 +102,8 @@
 
                 <div class="container">
                     <div class="carousel-caption text-start">
-                        <h1>Example headline.</h1>
-                        <p>Some representative placeholder content for the first slide of the carousel.</p>
+                        <h1 class="logo_font">7log에 오신것을 환영합니다 :D</h1>
+                        <p>사진 한장으로 남기는 나의 일상</p>
 <!--                        <p><a class="btn btn-lg btn-primary" href="#">Sign up today</a></p>-->
                         <form class="d-flex">
                             <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
@@ -133,14 +138,7 @@
                 </div>
             </div>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#myCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#myCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+
     </div>
 
 
@@ -162,7 +160,7 @@
 
                 <br><br>
                 <h2>ABOUT</h2>
-                <p>Some representative placeholder content for the three columns of text below the carousel. This is the first column.</p>
+                <p>사진 한장으로 여러분의 추억을 기록해 보세요! <br>새로운 일상을 경험할 수 있는 기회입니다!</p>
                 <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
@@ -176,7 +174,7 @@
 
                 <br><br>
                 <h2>HOW TO USE</h2>
-                <p>Another exciting bit of representative placeholder content. This time, we've moved on to the second column.</p>
+                <p>7log를 처음사용해 보시나요?<br>이곳을 통해 7log와 함께 사진 일기를 시작해봅시다!</p>
                 <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
             <div class="col-lg-4">
@@ -190,7 +188,7 @@
 
                 <br><br>
                 <h2>DashBoard</h2>
-                <p>And lastly this, the third column of representative placeholder content.</p>
+                <p>이제 이야기를 시작할 시간입니다!<br>다양한 라이프 스타일을 만나보세요!</p>
                 <p><a class="btn btn-secondary" href="#">View details &raquo;</a></p>
             </div><!-- /.col-lg-4 -->
         </div><!-- /.row -->

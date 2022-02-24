@@ -22,7 +22,7 @@ from django.conf import settings
 # ROOT_URLConf
 # 여기까지의 경로는 => http://127.0.0.1:8000/
 urlpatterns = [
-                  path('',TemplateView.as_view(template_name='main.html'),name='home'), # main page
+                  path('', TemplateView.as_view(template_name='main.html'), name='home'), # main page
                   path('admin/', admin.site.urls), # Admin page
                   # http://127.0.0.1:8000/bbs/ 로 시작하면 include()를 이용해서
                   # application 안의 URLConf로 이동

@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'diary_main.apps.DiaryMainConfig',
-    'users.apps.UsersConfig'
+    'users.apps.UsersConfig',
     'bootstrap4'
 ]
 

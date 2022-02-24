@@ -40,8 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'diary_main.apps.DiaryMainConfig',
-    'users.apps.UsersConfig',
-    'bootstrap4'
+    'users.apps.UsersConfig'
 ]
 
 MIDDLEWARE = [
@@ -83,7 +82,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'my_diary_db',
         'USER': 'root',
-        'PASSWORD': 'test1234',
+        'PASSWORD': 'whwotjd123',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }

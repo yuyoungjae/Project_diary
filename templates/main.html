@@ -7,7 +7,7 @@
 <!--    <meta name="description" content="">-->
 <!--    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">-->
 <!--    <meta name="generator" content="Hugo 0.88.1">-->
-    <title>Carousel Template · Bootstrap v5.1</title>
+    <title>7log</title>
 
     <!-- 구글 폰트 -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,6 +15,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Hi+Melody&display=swap" rel="stylesheet">
 
     <link rel="canonical" href="https://getbootstrap.com/docs/5.1/examples/carousel/">
+
+    <!--  ajax 사용  -->
+<!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
 
     <!-- jQuery CDN -->
     <script src="https://code.jquery.com/jquery-2.2.4.minzjs" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -82,7 +85,46 @@
 <!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
 <!--                    <button class="btn btn-outline-success" type="submit">Search</button>-->
 
-                    <p><a class="btn btn-lg btn-primary" href="#">Sign up</a></p>
+                    <!--
+                        # 사용자 정보가 호출이되면(로그인 상태라면)
+                        # 프로필 사진과 로그아웃 버튼이 보임
+                        {% if request.user.is_authenticated %}
+                        <img src="/static/img/L_002.png" width="50" height="50"> &nbsp;&nbsp;
+                        <a class="btn btn-lg btn-danger" href="/users/logout/">logout</a>
+
+                        # 사용자 정보가 호출이 안되면(비로그인 상태라면)
+                        # 회원가입, 로그인 버튼과 문구가 화면에 나옴
+                        # &nbsp; 는 띄어쓰기 삽입하는 코드
+                        {% else %}
+                        7log와 함께 당신의 이야기를 시작해보세요! -> &nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-lg btn-primary" href="/users/login/">Sign up</a>
+                        <a class="btn btn-lg btn-info" href="/users/login/">login</a>
+
+                        # if문 완료
+                        {% endif %}
+                    -->
+                    <p style= color:#ffff;>
+                        {% if request.user.is_authenticated %}
+                        <img src="/static/img/L_002.png" width="50" height="50"> &nbsp;&nbsp;
+                        <a class="btn btn-lg btn-danger" href="/users/logout/">logout</a>
+
+                        {% else %}
+                        7log와 함께 당신의 이야기를 시작해보세요! -> &nbsp;&nbsp;&nbsp;
+                        <a class="btn btn-lg btn-primary" href="/users/login/">Sign up</a>
+                        <a class="btn btn-lg btn-info" href="/users/login/">login</a>
+
+                        {% endif %}
+                    </p>
+<!--                    <p>-->
+<!--                        {% if request.user.is_authenticated %}-->
+<!--&lt;!&ndash;                        <a class="btn btn-lg btn-primary invisible" href="/users/login/">Sign up</a>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <a class="btn btn-lg btn-primary invisible" href="/users/login/">login</a>&ndash;&gt;-->
+<!--                        <img src="/static/img/L_002.png" width="50" height="50">-->
+<!--                        <a class="btn btn-lg btn-danger" href="/users/logout/">logout</a>-->
+<!--                        {% else %}-->
+<!--                        <a class="btn btn-lg btn-info" href="/users/login/">login</a>-->
+<!--                        {% endif %}-->
+<!--                    </p>-->
 
                 </form>
             </div>

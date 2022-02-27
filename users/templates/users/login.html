@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+<!--프로젝트에 등록해놓은 bootstarp4를 load해서 불러들이고-->
+
+{% block html_header %}
+    <script src="/static/js/menu_btn.js"></script> <!-- js형태로 static에 자바스크립트 만들고 경로를 설정해준다.-->
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none;
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+        }
+    </style>
+    <!-- Custom styles for this template -->
+    <link href="/static/css/signin.css" rel="stylesheet">
+{% endblock %}
+
+{% block html_body %}
+
+    <main class="form-signin">
+        <form action="/users/loginProcess/"
+              method="POST"> <!--사용자가 입력한 값을 가지고 sign in 클릭시 다음 url로 실행-->
+            <!-- {% csrf_token %} 장고가 사용하는 보안처리 코드 -->
+            {% csrf_token %}
+            <h1 class="h3 mb-3 fw-normal">Log in을 하고 7log를 시작해보세요!</h1>
+
+<!--            {{ my_form }}-->
+            {% bootstrap_form my_form %}
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Log in</button>
+        </form>
+    </main>
+
+
+{% endblock %}

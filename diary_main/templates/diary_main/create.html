@@ -8,11 +8,10 @@
 {%  block html_body %}
 <div class="container">
     <h1>새글 작성</h1>
-    <form action="/diary_main/create/"
-          method="post"
+    <form method="POST"
+          action="/diary_main/create/"
           enctype="multipart/form-data">
         {% csrf_token %}
-    {# {{ my_form }} #}
     {% bootstrap_form my_form %}
     <br>
     <button type="submit"
@@ -20,6 +19,5 @@
     <button type="button"
             class="btn btn-secondary">리스트로 돌아가기</button>
     </form>
-
 </div>
 {% endblock %}

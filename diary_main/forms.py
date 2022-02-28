@@ -12,21 +12,21 @@ class BoardForm(forms.ModelForm):
         model = Board
         # fields = "__all__"
         fields = ['b_title', 'b_image', 'b_author', 'b_content']
-
+        #
         labels = {
             'b_title': '글 제목',
             'b_image': '이미지',
             'b_author': '글 작성자',
             'b_content': '글 내용'
         }
-
+        #
         widgets = {
             'b_title': forms.TextInput(
                 attrs={
                     'class': 'form-control w-50',
                              'placeholder': '제목을 입력하세요!'
                 }
-            ),  # TextInput() : 1줄짜리 입력상자
+            ),
             'b_author': forms.TextInput(
                 attrs={
                     'class': 'form-control w-25',
@@ -60,6 +60,11 @@ class BoardDetailForm(forms.ModelForm):
             'b_title': forms.TextInput(
                 attrs={
                     'class': 'form-control w-50'
+                }
+            ),
+            'b_image': forms.TextInput(
+                attrs={
+                    'class': 'form-control w-25'
                 }
             ),
             'b_author': forms.TextInput(

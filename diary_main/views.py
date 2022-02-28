@@ -35,13 +35,13 @@ def b_create(request):
         # 클라이언트가 입력상자에 입력한 내용을 가지고 Database 처리를 해요
         board_form = BoardForm(request.POST)  # 클라이언트가 입력한 데이터를 가지고 있는 ModelForm
 
-    if board_form.is_valid():
-        board_form.save()  # BoardForm 안에 있는 데이터를 이용해서 Board class의 객체를 생성
-        # 입력받은 값 이외에 테이블의 다른 컬럼의 값을 지정해서 사용하려면
-        # new_post = board_form.save(commit=False)  # 실제로 저장되지 않아요. 대신 객체를 리턴해요
-        # new_post.b_like_count = 10
-        # new_post.save()
-        return redirect('diary_main:b_list')
+        if board_form.is_valid():
+            board_form.save()  # BoardForm 안에 있는 데이터를 이용해서 Board class의 객체를 생성
+            # 입력받은 값 이외에 테이블의 다른 컬럼의 값을 지정해서 사용하려면
+            # new_post = board_form.save(commit=False)  # 실제로 저장되지 않아요. 대신 객체를 리턴해요
+            # new_post.b_like_count = 10
+            # new_post.save()
+            return redirect('diary_main:b_list')
 
 
 def b_detail(request, board_id):

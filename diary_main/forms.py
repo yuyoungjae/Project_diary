@@ -97,4 +97,3 @@ class BoardDetailForm(forms.ModelForm):
 
         }
 
-

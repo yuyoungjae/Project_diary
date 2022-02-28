@@ -18,15 +18,20 @@ from django.urls import path, include
 from django.views.generic.base import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
+from diary_main import views
 
 # ROOT_URLConf
 # 여기까지의 경로는 => http://127.0.0.1:8000/
 urlpatterns = [
-                  path('',TemplateView.as_view(template_name='main.html'),name='home'), # main page
-                  path('admin/', admin.site.urls), # Admin page
-                  # http://127.0.0.1:8000/diary_main/ 로 시작하면 include()를 이용해서
-                  # application 안의 URLConf로 이동
-                  path('diary_main/', include('diary_main.urls')),  # 기본으로 잡힌 url에서 bbs/로 끝나서 앞부분 url과 맵핑이 되면 bbs.url로 넘겨준다는 의미
-                  path('users/', include('users.urls')), # users로 시작하면 users밑에있는 users.urls.py에서 처리하겠다는 의미
-              ] + static(settings.MEDIA_URL,
-                         document_root=settings.MEDIA_ROOT)
+    path('', TemplateView.as_view(template_name='main.html'), name='home'),  # main page
+    path('admin/', admin.site.urls),    # Admin page
+    path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
+    path('howtouse/', TemplateView.as_view(template_name='howtouse.html'), name='howtouse'),
+    path('dashboard/', TemplateView.as_view(template_name='dashboard.html'), name='dashboard'),
+    path('diary_main/', include('diary_main.urls')),
+    # http://127.0.0.1:8000/bbs/ 로 시작하면 include()를 이용해서
+    # application 안의 URLConf로 이동
+    # path('bbs/', include('bbs.urls')),  # 기본으로 잡힌 url에서 bbs/로 끝나서 앞부분 url과 맵핑이 되면 bbs.url로 넘겨준다는 의미
+    # path('users/', include('users.urls')), # users로 시작하면 users밑에있는 users.urls.py에서 처리하겠다는 의미
+] + static(settings.MEDIA_URL,
+           document_root=settings.MEDIA_ROOT)

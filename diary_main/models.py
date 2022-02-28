@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 
+
 # class명이 Board이면 만들어지는 실제 table이름은 bbs_board이 되요!
 # class는 반드시 장고가 제공하는 class를 상속받아서 만들어야 해요!
 # Database Table이 가지고 있는 각각의 column을
@@ -33,7 +34,6 @@ class Comment(models.Model):
     # board_id라는 이름의 column으로 생성되고 ForeignKey로 설정되요!
     board = models.ForeignKey(Board,
                               on_delete=models.CASCADE)
-
 
     def __str__(self):
         return self.c_content

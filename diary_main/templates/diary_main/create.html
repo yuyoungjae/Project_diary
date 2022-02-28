@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+
+{% block html_header %}
+<script src="/static/js/menu_btn.js"></script>
+{% endblock %}
+
+{%  block html_body %}
+<div class="container">
+    <h1>새글 작성</h1>
+    <form action="/diary_main/create/"
+          method="post"
+          enctype="multipart/form-data">
+        {% csrf_token %}
+    {# {{ my_form }} #}
+    {% bootstrap_form my_form %}
+    <br>
+    <button type="submit"
+            class="btn btn-primary">등록</button>
+    <button type="button"
+            class="btn btn-secondary">리스트로 돌아가기</button>
+    </form>
+
+</div>
+{% endblock %}

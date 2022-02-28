@@ -5,14 +5,14 @@ from django.http import JsonResponse
 
 
 def b_list(request):
-    if request.user.is_authenticated:
-        posts = Board.objects.all().order_by('-id')
-        context = {
-            "posts": posts
-        }
-        return render(request, 'diary_main/list.html', context)
-    else:
-        return redirect('home')
+    # if request.user.is_authenticated:
+    posts = Board.objects.all().order_by('-id')
+    context = {
+        "posts": posts
+    }
+    return render(request, 'diary_main/list.html', context)
+    # else:
+    #     return redirect('home')
 
 
 def b_create(request):

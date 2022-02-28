@@ -21,14 +21,9 @@ from django.conf import settings
 from diary_main import views
 
 # ROOT_URLConf
-# 여기까지의 경로는 => http://127.0.0.1:8000/
+# 여기까지의 경로는 => http://127.0.0.1:8000/diary_main
 urlpatterns = [
-    path('', TemplateView.as_view(template_name='main.html'), name='home'),  # main page
-    path('admin/', admin.site.urls),    # Admin page
-    path('about/', TemplateView.as_view(template_name='about.html'), name='about'),
-    path('howtouse/', TemplateView.as_view(template_name='howtouse.html'), name='howtouse'),
-    path('dashboard/', TemplateView.as_view(template_name='dashboard.html'), name='dashboard'),
-    path('diary_main/', include('diary_main.urls')),
+    path('create/', views.b_create, name='b_create')
     # http://127.0.0.1:8000/bbs/ 로 시작하면 include()를 이용해서
     # application 안의 URLConf로 이동
     # path('bbs/', include('bbs.urls')),  # 기본으로 잡힌 url에서 bbs/로 끝나서 앞부분 url과 맵핑이 되면 bbs.url로 넘겨준다는 의미

@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.urls import path
 from users import views
-
+from django.conf import settings
+from django.conf.urls.static import static
 
 # namespace설정
 app_name = 'users'
@@ -26,5 +27,8 @@ app_name = 'users'
 urlpatterns = [
     path('login/', views.login, name='login'),
     path('logout/', views.logout, name='logout'),
-    path('loginProcess/', views.login_process, name='login_process')
+    path('loginProcess/', views.login_process, name='login_process'),
+    path('signup/', views.signup, name='signup')
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

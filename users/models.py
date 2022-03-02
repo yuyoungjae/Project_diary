@@ -8,5 +8,4 @@ class Member(AbstractUser):
     image = models.ImageField(upload_to=settings.MEDIA_ROOT,
                               blank=True,
                               null=True)
-    nickname = models.CharField(max_length=20,
-                                unique=True)
+    nickname = models.CharField(max_length=20)

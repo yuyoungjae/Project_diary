@@ -143,11 +143,11 @@ def signup(request):
         print(request.POST)
         if request.POST['password1'] == request.POST['password2']:
             user = Member.objects.create_user(
-                username = request.POST["username"],
-                nickname = request.POST["nickname"],
-                password = request.POST["password1"],
-
-                )
+                username=request.POST["username"],
+                nickname=request.POST["nickname"],
+                password=request.POST["password1"],
+                image=request.FILES["image"]
+            )
             user.save()
         return redirect("users:login")
     return render(request, "users/signup.html")

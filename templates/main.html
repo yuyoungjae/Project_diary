@@ -82,6 +82,7 @@
                     </li>
                 </ul>
                 <form class="d-flex">
+<!--                {% csrf_token %}-->
 <!--                    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">-->
 <!--                    <button class="btn btn-outline-success" type="submit">Search</button>-->
 
@@ -103,28 +104,34 @@
                         # if문 완료
                         {% endif %}
                     -->
-                    <p style= color:#ffff;>
+                    <div>
+                        <p style= color:#ffff;>
+
+                            {% if request.user.is_authenticated %}
+                            {{ user.username }}
+                            <img src="{{ user.image.url }}" width="50" height="50">
+                            <a class="btn btn-lg btn-danger" href="/users/logout/">logout</a>
+
+                            {% else %}
+                            7log와 함께 당신의 이야기를 시작해보세요! -> &nbsp;&nbsp;&nbsp;
+                            <a class="btn btn-lg btn-primary" href="/users/signup/">Sign up</a>
+                            <a class="btn btn-lg btn-info" href="/users/login/">login</a>
+
+                            {% endif %}
+                        </p>
+                    </div>
+<!--
+                    <p>
                         {% if request.user.is_authenticated %}
-                        <img src="/static/img/L_002.png" width="50" height="50"> &nbsp;&nbsp;
+                        //<a class="btn btn-lg btn-primary invisible" href="/users/login/">Sign up</a>
+                        //<a class="btn btn-lg btn-primary invisible" href="/users/login/">login</a>
+                        <img src="/static/img/L_002.png" width="50" height="50">
                         <a class="btn btn-lg btn-danger" href="/users/logout/">logout</a>
-
                         {% else %}
-                        7log와 함께 당신의 이야기를 시작해보세요! -> &nbsp;&nbsp;&nbsp;
-                        <a class="btn btn-lg btn-primary" href="/users/signup/">Sign up</a>
                         <a class="btn btn-lg btn-info" href="/users/login/">login</a>
-
                         {% endif %}
                     </p>
-<!--                    <p>-->
-<!--                        {% if request.user.is_authenticated %}-->
-<!--&lt;!&ndash;                        <a class="btn btn-lg btn-primary invisible" href="/users/login/">Sign up</a>&ndash;&gt;-->
-<!--&lt;!&ndash;                        <a class="btn btn-lg btn-primary invisible" href="/users/login/">login</a>&ndash;&gt;-->
-<!--                        <img src="/static/img/L_002.png" width="50" height="50">-->
-<!--                        <a class="btn btn-lg btn-danger" href="/users/logout/">logout</a>-->
-<!--                        {% else %}-->
-<!--                        <a class="btn btn-lg btn-info" href="/users/login/">login</a>-->
-<!--                        {% endif %}-->
-<!--                    </p>-->
+                    -->
 
                 </form>
             </div>

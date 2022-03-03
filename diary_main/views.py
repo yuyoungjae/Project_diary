@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from diary_main.models import Board, Comment
-from diary_main.forms import BoardForm, BoardDetailForm
+from diary_main.forms import BoardForm
 from django.http import JsonResponse
+from django.views.decorators.http import require_http_methods
+from django.views.decorators.http import require_safe
 
 
 def b_list(request):
@@ -14,7 +16,7 @@ def b_list(request):
     # else:
     #     return redirect('home')
 
-
+@require_http_methods(['GET', 'POST'])
 def b_create(request):
     # request 방식이 GET인지 POST인지 구분해서 처리
     # 만약 GET 방식이면 빈 입력상자를 출력하고 POST 방식이면
@@ -33,34 +35,40 @@ def b_create(request):
     else:
         # POST 방식인 경우에는 이 부분이 수행돼요
         # 클라이언트가 입력상자에 입력한 내용을 가지고 Database 처리를 해요
-        board_form = BoardForm(request.POST)  # 클라이언트가 입력한 데이터를 가지고 있는 ModelForm
+        board_form = BoardForm(request.POST, request.FILES)  # 클라이언트가 입력한 데이터를 가지고 있는 ModelForm
 
         if board_form.is_valid():
-            board_form.save()  # BoardForm 안에 있는 데이터를 이용해서 Board class의 객체를 생성
+            board_form.save()
+            # BoardForm 안에 있는 데이터를 이용해서 Board class의 객체를 생성
             # 입력받은 값 이외에 테이블의 다른 컬럼의 값을 지정해서 사용하려면
             # new_post = board_form.save(commit=False)  # 실제로 저장되지 않아요. 대신 객체를 리턴해요
             # new_post.b_like_count = 10
             # new_post.save()
-            return redirect('diary_main:b_list')
+            return redirect('diary_main:b_list',)
 
-
+@require_safe
 def b_detail(request, board_id):
     # 게시글의 세부내용을 가져와서 화면에 출력해야 해요
     # ModelForm을 이용해서 Database에서 가져온 내용을 화면에 출력
 
     # 1. board_id를 이용해서 게시글 1개를 가져와야 해요 (객체)
-    post = get_object_or_404(Board, pk=board_id)
-    # 2. 만들어놓은 BoarDetailForm이라는 ModelForm의 객체를
-    #    위에서 만든 Board class의 객체인 post를 이용해서 생성
-    board_detail_form = BoardDetailForm(instance=post)
-    # 3. 댓글(Comment) 정보도 가져와야 해요
-    comments = post.comment_set.all().order_by('-id')
-
+    # post = get_object_or_404(Board, pk=board_id)
+    # # 2. 만들어놓은 BoarDetailForm이라는 ModelForm의 객체를
+    # #    위에서 만든 Board class의 객체인 post를 이용해서 생성
+    # board_detail_form = BoardDetailForm(instance=post)
+    # # 3. 댓글(Comment) 정보도 가져와야 해요
+    # comments = post.comment_set.all().order_by('-id')
+    #
+    # context = {
+    #     "detail_form": board_detail_form,
+    #     'comments': comments
+    # }
+    #
+    # return render(request, 'diary_main/detail.html', context)
+    post = Board.objects.get(pk=board_id)
     context = {
-        "detail_form": board_detail_form,
-        'comments': comments
+        'post':post,
     }
-
     return render(request, 'diary_main/detail.html', context)
 
 

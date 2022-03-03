@@ -18,7 +18,7 @@ class Board(models.Model):
     # auto_now=True => 현재시간이 자동으로 삽입
     b_comment_count = models.IntegerField(default=0)  # 댓글 개수
     b_like_count = models.IntegerField(default=0)  # 좋아요 개수
-    b_img = models.ImageField(upload_to=settings.MEDIA_ROOT,
+    b_img = models.ImageField(upload_to='img/',
                               blank=True,
                               null=True)
 

@@ -9,3 +9,4 @@ class Member(AbstractUser):
                               blank=True,
                               null=True)
     nickname = models.CharField(max_length=20)
+

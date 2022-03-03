@@ -1,18 +1,9 @@
-
 function new_post() {
-    document.location.href = '/bbs/create/'
-    // 다큐먼트가 내용이 나오는 흰색화면을 의미
-    // 자바스크립트 자체에서 지원해주는 함수
-    // 해당링크로 서버쪽에 request 해준다는 의미.
+    document.location.href = '/diary_main/create/'
 }
-
-function back_list() {
-    document.location.href = '/bbs/list/'
-    // 다큐먼트가 내용이 나오는 흰색화면을 의미
-    // 자바스크립트 자체에서 지원해주는 함수
-    // 해당링크로 서버쪽에 request 해준다는 의미.
+function to_list() {
+    document.location.href = '/diary_main/list/'
 }
-
 
 function delete_post() {
     //내가 어떤글을 삭제할지 알아야 함!

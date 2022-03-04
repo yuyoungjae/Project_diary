@@ -18,6 +18,9 @@ def b_list(request):
 
 @require_http_methods(['GET', 'POST'])
 def b_create(request):
+    # if not request.session.get('users_member'):
+    #     return redirect('/users/login/')
+
     # request 방식이 GET인지 POST인지 구분해서 처리
     # 만약 GET 방식이면 빈 입력상자를 출력하고 POST 방식이면
     # 입력된 데이터를 이용해서 Database 처리
@@ -81,18 +84,18 @@ def b_delete(request):
     return redirect('bbs:b_list')
 
 
-def b_like(request):
-    post_id = request.GET['post_id']
-    post = get_object_or_404(Board, pk=post_id)
-    post.b_like_count += 1
-    post.save()
-
-    board_detail_form = BoardDetailForm(instance=post)
-    context = {
-        "detail_form": board_detail_form
-    }
-
-    return render(request, 'diary_main/detail.html', context)
+# def b_like(request):
+#     post_id = request.GET['post_id']
+#     post = get_object_or_404(Board, pk=post_id)
+#     post.b_like_count += 1
+#     post.save()
+#
+#     board_detail_form = BoardDetailForm(instance=post)
+#     context = {
+#         "detail_form": board_detail_form
+#     }
+#
+#     return render(request, 'diary_main/detail.html', context)
 
 
 def create_comment(request):

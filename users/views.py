@@ -16,6 +16,8 @@ from users.forms import UserForm
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 
+from django.contrib import messages
+
 
 # 함수 선언
 # alert_js ='''
@@ -50,6 +52,7 @@ def login_process(request):
         login_form = LoginForm(request.POST)
         username = login_form.data['username']
         password = login_form.data['password']
+        errorMsg = {}
 
         # 로그인 인증처리
         user = authenticate(username=username,
@@ -64,9 +67,9 @@ def login_process(request):
         else:
             # tkinter.messagebox.showinfp("메세지", "오류")
             # messages.error(self.request, '사용자를 찾을 수 없습니다 !_!')
+            # errorMsg['error'] = '사용자를 찾을 수 없습니다.'
             return HttpResponse('사용자를 찾을 수 없습니다 !_!')
             # return redirect('home')
-            # return
 
 
 # 회원가입

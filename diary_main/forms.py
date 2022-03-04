@@ -5,6 +5,7 @@
 
 from django import forms
 from diary_main.models import *
+from users.models import Member
 
 
 class BoardForm(forms.ModelForm):
@@ -29,8 +30,8 @@ class BoardForm(forms.ModelForm):
             ),
             'b_author': forms.TextInput(
                 attrs={
-                    'class': 'form-control w-25',
-                    'placeholder': '작성자를 입력하세요!'
+                    'readonly class': 'form-control w-25',
+                    'value': Member.nickname
                 }
             ),
             'b_content': forms.Textarea(

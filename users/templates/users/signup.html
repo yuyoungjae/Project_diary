@@ -1,58 +1,88 @@
 {% extends "base.html" %}
+{% block html_header %}
+<script src = "/static/js/menu_btn.js"></script>
+<style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+<link href="/static/css/signin.css" rel="stylesheet">
+{% endblock %}
+
 {% block html_body %}
-
-
-<div class="container my-3">
-    <div class="row my-3">
-        <div class="col-4">
-            <h4>계정생성</h4>
-        </div>
-    </div>
-    <form action="" method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
-        <div class="form-group">
-            <label for="username">ID</label>
-            <input type="text" class="form-control" name="username" id="username"
-                   value="{{ form.username.value|default_if_none:'' }}">
-        </div>
-        <div class="form-group">
-            <label for="nickname">닉네임</label>
-            <input type="text" class="form-control" name="nickname" id="nickname"
-                   value="{{ form.nickname.value|default_if_none:'' }}">
-        </div>
-        <div class="form-group">
-            <label for="password1">비밀번호</label>
-            <input type="password" class="form-control" name="password1" id="password1"
-                   value="{{ form.password1.value|default_if_none:'' }}">
-        </div>
-        <div class="form-group">
-            <label for="password2">비밀번호 확인</label>
-            <input type="password" class="form-control" name="password2" id="password2"
-                   value="{{ form.password2.value|default_if_none:'' }}">
-        </div>
-
-<!--        프사 넣을 박스-->
-        <div class="form-group">
-            <p>프로필 사진</p>
-            <input name="image" type="file">
-        </div>
-        <!--비밀번호 찾을 방법 없음 // 가입시 어디 메모해두셈-->
-        <!--
-        <div class="form-group">
-            <label for="q_password">비밀번호 찾을 질문</label>
-            <input type="text" class="form-control" name="q_password" id="q_password"
-                   value="{{ form.q_password.value|default_if_none:'' }}">
-        </div>
-        <div class="form-group">
-            <label for="a_password">비밀번호 질문 답</label>
-            <input type="text" class="form-control" name="a_password" id="a_password"
-                   value="{{ form.a_password.value|default_if_none:'' }}">
-        </div>
-        -->
-        <button type="submit" class="btn btn-primary">생성하기</button>
-    </form>
-</div>
+<main class="form-signin">
+<!-- 기본형
+{% for message in messages %}
+    {{ message.tag }}
+    {{ message }}
+{% endfor %}
 -->
+<!-- 버튼형 -->
+{% for message in messages %}
+    <div class="alert {{ message.tags }} alert-auto-dismissible alert-dismissible notification-container text-center" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ message }}
+    </div>
+{% endfor %}
+
+    <div class="container my-3">
+        <div class="row my-3">
+            <div class="col-6">
+                <h4>회원가입</h4>
+            </div>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="username">ID</label>
+                <input type="text" class="form-control" name="username" id="username"
+                       placeholder="아이디를 입력하세요.">
+<!--                       value="{{ form.username.value|default_if_none:'' }}">-->
+            </div>
+            <div class="form-group">
+                <label for="nickname">닉네임</label>
+                <input type="text" class="form-control" name="nickname" id="nickname"
+                       placeholder="닉네임을 입력하세요.">
+<!--                       value="{{ form.nickname.value|default_if_none:'' }}">-->
+            </div>
+            <div class="form-group">
+                <label for="password1">비밀번호</label>
+                <input type="password" class="form-control" name="password1" id="password1"
+                       placeholder="비밀번호를 입력하세요.">
+<!--                       value="{{ form.password1.value|default_if_none:'' }}">-->
+            </div>
+            <div class="form-group">
+                <label for="password2">비밀번호 확인</label>
+                <input type="password" class="form-control" name="password2" id="password2"
+                       placeholder="비밀번호를 한번 더 입력하세요.">
+<!--                       value="{{ form.password2.value|default_if_none:'' }}">-->
+            </div>
+
+    <!--        프사 넣을 박스-->
+            <div class="form-group">
+                <p>프로필 사진</p>
+                <input name="image" type="file">
+            </div>
+            <div class="col text-center"> <!-- 버튼 가운데정렬 -->
+                <button type="submit" class="btn btn-primary">가입하기</button>
+            </div>
+
+        </form>
+    </div>
+</main>
+
 
 <!--
 <form action="" method="POST">

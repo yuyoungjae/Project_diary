@@ -17,7 +17,7 @@ from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 
 from django.contrib import messages
-
+from django.contrib.auth.hashers import make_password, check_password
 
 # 함수 선언
 # alert_js ='''
@@ -153,4 +153,33 @@ def signup(request):
             )
             user.save()
         return redirect("users:login")
+    return render(request, "users/signup.html")
+
+
+def signup2(request):
+    if request.method == 'POST':
+        print(request.POST)
+        username = request.POST.get('username')
+        nickname = request.POST.get('nickname')
+        password = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        image = request.FILES.get('image')
+        print(password != password2)
+
+        if not (username and nickname and password and password2):
+            messages.warning(request, "프로필 사진을 제외한 모든 칸을 채워주세용!")
+            return redirect('users:signup')
+
+        elif password != password2:
+            messages.warning(request, "비밀번호가 일치하지 않습니다")
+
+        else:
+            user = Member.objects.create_user(
+                username=username,
+                nickname=nickname,
+                password=make_password(password),
+                image=image
+            )
+            user.save()
+        return redirect('users:login')
     return render(request, "users/signup.html")

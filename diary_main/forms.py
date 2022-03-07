@@ -42,7 +42,10 @@ class BoardForm(forms.ModelForm):
             ),
             'b_map':forms.TextInput(
                 attrs={
-                'value':'focus_out()'
+                    'placeholder': '주소를 입력하세요!',
+                    'id':'map_name',
+                    'onblur': 'focus_out()'
+
                 }
             )# Textarea() : 여러 줄짜리 입력상자
         }

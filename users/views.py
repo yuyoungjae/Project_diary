@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
-from django.contrib.auth.hashers import make_password, check_password
 from django.contrib import messages
+from django.http import JsonResponse
 
 # logout 이름이 겹치기 때문에 모듈 이름을 다르게 가져옴
 from django.contrib.auth import logout as django_logout
@@ -49,11 +49,15 @@ def login_process(request):
             return redirect('home')  # 하고 홈으로 보냄
 
         # 유저 객체가 없다면
-        else:
-            return HttpResponse('사용자를 찾을 수 없습니다 !_!')
+        elif user is None:
+            messages.warning(request, "아이디 또는 비밀번호가 일치하지 않습니다. :D")
+            return redirect('users:login')
+    else:
+        return render(request, 'users/login.html')
 
 
 # 회원가입
+'''
 def signup(request):
     if request.method == "POST":
         print(request.POST)
@@ -66,36 +70,53 @@ def signup(request):
             )
             user.save()
         return redirect("users:login")
-    return render(request, "users/signup.html")
+    return render(request, "users/signup_test.html")
+'''
 
 
 def signup2(request):
-    if request.method == 'GET':
-        return render(request, 'users/signup.html')
-
-    elif request.method == 'POST':
+    if request.method == 'POST':
         print(request.POST)
-        username = request.POST.get('username', None)
-        nickname = request.POST.get('nickname', None)
-        password = request.POST.get('password1', None)
-        password2 = request.POST.get('password2', None)
+        username = request.POST.get('username')
+        nickname = request.POST.get('nickname')
+        password = request.POST.get('password1')
+        password2 = request.POST.get('password2')
         image = request.FILES.get('image')
         print(password != password2)
 
         if not (username and nickname and password and password2):
             messages.warning(request, "프로필 사진을 제외한 모든 칸을 채워주세용!")
+            return redirect('users:signup')
 
         elif password != password2:
             messages.warning(request, "비밀번호가 일치하지 않습니다")
+            return redirect('users:signup')
 
         else:
             user = Member.objects.create_user(
                 username=username,
                 nickname=nickname,
-                password=make_password(password),
+                password=password,
                 image=image
             )
             user.save()
-        return render(request, 'users/signup.html')
-    return redirect("users:login")
+        return redirect('users:login')
+    return render(request, "users/signup.html")
 
+
+def do_duplicate_check(request):
+    print('아이디 중복 체크')
+    username = request.GET.get('username')
+    try:
+        # 중복 검사 실패
+        user_id = Member.objects.get(username=username)
+
+    except:
+        # 중복 검사 성공
+        user_id = None
+    if user_id is None:
+        duplicate = "pass"
+    else:
+        duplicate = "fail"
+    context = {'duplicate': duplicate}
+    return JsonResponse(context)

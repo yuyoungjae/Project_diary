@@ -1,7 +1,10 @@
 from django.http import HttpResponse
+from django.contrib.auth import authenticate
+from django.shortcuts import render, redirect
+from django.contrib import messages
+from django.http import JsonResponse
 from django.contrib.auth.forms import UserCreationForm
 from users.forms import CustomUserCreationForm
-from users.models import Member
 
 # logout 이름이 겹치기 때문에 모듈 이름을 다르게 가져옴
 from django.contrib.auth import logout as django_logout
@@ -16,8 +19,6 @@ from users.forms import UserForm
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
 
-from django.contrib import messages
-from django.contrib.auth.hashers import make_password, check_password
 
 # 함수 선언
 # alert_js ='''
@@ -52,7 +53,6 @@ def login_process(request):
         login_form = LoginForm(request.POST)
         username = login_form.data['username']
         password = login_form.data['password']
-        errorMsg = {}
 
         # 로그인 인증처리
         user = authenticate(username=username,
@@ -64,12 +64,11 @@ def login_process(request):
             return redirect('home')  # 하고 홈으로 보냄
 
         # 유저 객체가 없다면
-        else:
-            # tkinter.messagebox.showinfp("메세지", "오류")
-            # messages.error(self.request, '사용자를 찾을 수 없습니다 !_!')
-            # errorMsg['error'] = '사용자를 찾을 수 없습니다.'
-            return HttpResponse('사용자를 찾을 수 없습니다 !_!')
-            # return redirect('home')
+        elif user is None:
+            messages.warning(request, "아이디 또는 비밀번호가 일치하지 않습니다. :D")
+            return redirect('users:login')
+    else:
+        return render(request, 'users/login.html')
 
 
 # 회원가입
@@ -153,7 +152,8 @@ def signup(request):
             )
             user.save()
         return redirect("users:login")
-    return render(request, "users/signup.html")
+    return render(request, "users/signup_test.html")
+
 
 
 def signup2(request):
@@ -172,12 +172,13 @@ def signup2(request):
 
         elif password != password2:
             messages.warning(request, "비밀번호가 일치하지 않습니다")
+            return redirect('users:signup')
 
         else:
             user = Member.objects.create_user(
                 username=username,
                 nickname=nickname,
-                password=make_password(password),
+                password=password,
                 image=image
             )
             user.save()

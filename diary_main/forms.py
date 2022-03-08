@@ -6,6 +6,7 @@
 from django import forms
 from diary_main.models import *
 from users.models import Member
+from users.views import login
 
 
 class BoardForm(forms.ModelForm):
@@ -17,7 +18,7 @@ class BoardForm(forms.ModelForm):
         labels = {
             'b_title': '글 제목',
             'b_img': '이미지',
-            'b_author': '글 작성자',
+            'b_author': '',
             'b_content': '글 내용',
             'b_map': '지도입력'
         }
@@ -31,14 +32,16 @@ class BoardForm(forms.ModelForm):
             ),
             'b_author': forms.TextInput(
                 attrs={
-                    'readonly class': 'form-control w-25',
-                    'value': Member.nickname
+                    'hidden class': 'form-control w-25',
+                    # 'placeholder': '작성자를 입력하세요!'
+                    'id': 'username'
                 }
             ),
             'b_content': forms.Textarea(
                 attrs={
                     'class': 'form-control w-75',
-                    'placeholder': '글 내용을 입력하세요!'
+                    'placeholder': '글 내용을 입력하세요!',
+                    'onblur': 'name_push()'
                 }
             ),
             'b_map':forms.TextInput(

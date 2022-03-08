@@ -18,7 +18,7 @@ from users.forms import UserForm
 
 from django.contrib.auth import authenticate
 from django.shortcuts import render, redirect
-
+from django.contrib.auth.hashers import check_password
 
 # 함수 선언
 # alert_js ='''
@@ -33,11 +33,44 @@ from django.shortcuts import render, redirect
 # render : templates을 불러옴
 # redirect : URL로 이동 => 이동하는 URL에 맞는 view가 다시 실행되고, render할지/redirect할지 결정
 def login(request):
-    login_form = LoginForm()
-    context = {
-        "my_form": login_form
-    }
-    return render(request, 'users/login.html', context)
+    if request.method == 'GET':
+        login_form = LoginForm()
+        context = {
+            "my_form": login_form
+        }
+        return render(request, 'users/login.html', context)
+
+    elif request.method == 'POST':
+        # 사용자가 보낸 request안에 POST 형식으로 보낸 정보가 들어감
+        login_form = LoginForm(request.POST)
+        username = login_form.data['username']
+        password = login_form.data['password']
+
+        # if not (username and password):
+        #     messages.warning(request, "모든 값을 입력하세요!")
+        # else:
+        #     member = Member.objects.get(username=username)
+        #     if check_password(password, member.password):
+        #         request.session['user'] = member.id
+
+        # 로그인 인증처리
+        user = authenticate(username=username,
+                            password=password)
+
+        member = Member.objects.get(username=username)
+
+        # 유저 객체가 있다면
+        if user is not None:
+            django_login(request, user)  # 로그인 처리
+            request.session['user'] = member.id
+            return redirect('users:test')  # 하고 홈으로 보냄
+
+        # 유저 객체가 없다면
+        elif user is None:
+            messages.warning(request, "아이디 또는 비밀번호가 일치하지 않습니다. :D")
+            return redirect('users:login')
+    else:
+        return render(request, 'users/login.html')
 
 
 def logout(request):
@@ -46,29 +79,53 @@ def logout(request):
     return redirect('home')
 
 
-def login_process(request):
-    # 사용자가 request를 보내는데, 그 방식이 POST 방식이라면
-    if request.method == 'POST':
-        # 사용자가 보낸 request안에 POST 형식으로 보낸 정보가 들어감
-        login_form = LoginForm(request.POST)
-        username = login_form.data['username']
-        password = login_form.data['password']
+def home(request):
+    user_id = request.session.get('user')
 
-        # 로그인 인증처리
-        user = authenticate(username=username,
-                            password=password)
+    if user_id:
+        member = Member.objects.get(pk=user_id)
+        context = {
+            'member': member
+        }
+        # return HttpResponse(member.nickname)
+        return redirect('home')
 
-        # 유저 객체가 있다면
-        if user is not None:
-            django_login(request, user)  # 로그인 처리
-            return redirect('home')  # 하고 홈으로 보냄
+    return HttpResponse('Home!')
 
-        # 유저 객체가 없다면
-        elif user is None:
-            messages.warning(request, "아이디 또는 비밀번호가 일치하지 않습니다. :D")
-            return redirect('users:login')
-    else:
-        return render(request, 'users/login.html')
+
+# def login_process(request):
+#     # 사용자가 request를 보내는데, 그 방식이 POST 방식이라면
+#     if request.method == 'POST':
+#         # 사용자가 보낸 request안에 POST 형식으로 보낸 정보가 들어감
+#         login_form = LoginForm(request.POST)
+#         username = login_form.data['username']
+#         password = login_form.data['password']
+#
+#         # if not (username and password):
+#         #     messages.warning(request, "모든 값을 입력하세요!")
+#         # else:
+#         #     member = Member.objects.get(username=username)
+#         #     if check_password(password, member.password):
+#         #         request.session['user'] = member.id
+#
+#         # 로그인 인증처리
+#         user = authenticate(username=username,
+#                             password=password)
+#
+#         member = Member.objects.get(username=username)
+#
+#         # 유저 객체가 있다면
+#         if user is not None:
+#             django_login(request, user)  # 로그인 처리
+#             request.session['user'] = member.id
+#             return redirect('users:test')  # 하고 홈으로 보냄
+#
+#         # 유저 객체가 없다면
+#         elif user is None:
+#             messages.warning(request, "아이디 또는 비밀번호가 일치하지 않습니다. :D")
+#             return redirect('users:login')
+#     else:
+#         return render(request, 'users/login.html')
 
 
 # 회원가입
@@ -153,7 +210,6 @@ def signup(request):
             user.save()
         return redirect("users:login")
     return render(request, "users/signup_test.html")
-
 
 
 def signup2(request):

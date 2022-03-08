@@ -106,6 +106,13 @@
         <!--또한 부트스트랩을 사용하기 위해 클래스를 잡아줘야한다.-->
         <button type="submit" class="btn btn-primary">등록</button> <!--버튼 누르면 /bbs/create/로 보내겠다는 의미-->
         <button type="button" class="btn btn-secondary"onclick="to_list()">리스트로 돌아가기</button>
+
+            {% if request.user.is_authenticated %}
+                <span style="display:none;" id="name_load">
+                    {{ user.nickname }}
+                </span>
+            {% endif %}
+            <script src="/static/js/test.js"></script>
     </form>
 </div>
 </main>

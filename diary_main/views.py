@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from diary_main.models import Board, Comment
 from diary_main.forms import BoardForm
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_safe
+from users.views import login
+from users.models import Member
 
 
 def b_list(request):
@@ -15,6 +17,7 @@ def b_list(request):
     return render(request, 'diary_main/list.html', context)
     # else:
     #     return redirect('home')
+
 
 @require_http_methods(['GET', 'POST'])
 def b_create(request):
@@ -47,7 +50,8 @@ def b_create(request):
             # new_post = board_form.save(commit=False)  # 실제로 저장되지 않아요. 대신 객체를 리턴해요
             # new_post.b_like_count = 10
             # new_post.save()
-            return redirect('diary_main:b_list',)
+            return redirect('diary_main:b_list')
+
 
 @require_safe
 def b_detail(request, board_id):
@@ -70,18 +74,18 @@ def b_detail(request, board_id):
     # return render(request, 'diary_main/detail.html', context)
     post = Board.objects.get(pk=board_id)
     context = {
-        'post':post,
+        'post': post,
     }
     return render(request, 'diary_main/detail.html', context)
 
 
-def b_delete(request):
-    # QueryString으로 전달된 삭제할 글 번호부터 뽑아요
-    post_id = request.GET['post_id']
-    post = get_object_or_404(Board, pk=post_id)
-    post.delete()
-
-    return redirect('bbs:b_list')
+# def b_delete(request):
+#     # QueryString으로 전달된 삭제할 글 번호부터 뽑아요
+#     post_id = request.GET['post_id']
+#     post = get_object_or_404(Board, pk=post_id)
+#     post.delete()
+#
+#     return redirect('bbs:b_list')
 
 
 # def b_like(request):
@@ -96,6 +100,31 @@ def b_delete(request):
 #     }
 #
 #     return render(request, 'diary_main/detail.html', context)
+
+def b_delete(request):
+    # QueryString으로 전달된 삭제할 글 번호부터 뽑아요
+    post_id = request.GET['post_id']
+    post = get_object_or_404(Board, pk=post_id)
+    post.delete()
+
+    return redirect('diary_main:b_list')
+
+
+def b_like(request):
+    post_id = request.GET['post_id']
+    post = get_object_or_404(Board, pk=post_id)
+    post.b_like_count += 1
+    context = {
+        'post': post
+    }
+    post.save()
+
+    # board_detail_form = BoardDetailForm(instance=post)
+    # context = {
+    #     "detail_form": board_detail_form
+    # }
+
+    return render(request, 'diary_main/detail.html', context)
 
 
 def create_comment(request):
@@ -123,3 +152,5 @@ def delete_comment(request):
     comment = get_object_or_404(Comment, pk=request.GET['comment_id'])
     comment.delete()
     return JsonResponse({}, json_dumps_params={'ensure_ascii': True})
+
+

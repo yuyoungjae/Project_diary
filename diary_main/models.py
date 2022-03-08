@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from users.models import Member
+
 # class명이 Board이면 만들어지는 실제 table이름은 bbs_board이 되요!
 # class는 반드시 장고가 제공하는 class를 상속받아서 만들어야 해요!
 # Database Table이 가지고 있는 각각의 column을
@@ -12,15 +13,14 @@ from users.models import Member
 
 class Board(models.Model):
     b_title = models.CharField(max_length=50)  # 글 제목
-    b_author = models.CharField(max_length=25)  # 글 작성자
+    b_author = models.CharField(max_length=20)  # 글 작성자
     b_content = models.CharField(max_length=200)  # 글 내용
     b_date = models.DateTimeField(auto_now=True)  # 글 작성시간
     # auto_now=True => 현재시간이 자동으로 삽입
     b_comment_count = models.IntegerField(default=0)  # 댓글 개수
     b_like_count = models.IntegerField(default=0)  # 좋아요 개수
     b_img = models.ImageField(upload_to=settings.MEDIA_ROOT,
-                                blank=True,
-                                null=True)
+                              blank=True, null=True)
     b_map = models.CharField(max_length=50)
 
     def __str__(self):
@@ -28,7 +28,7 @@ class Board(models.Model):
 
 
 class Comment(models.Model):
-    c_author = models.CharField(max_length=20)  # 댓글 작성자
+    c_author = models.ForeignKey(Member, on_delete=models.CASCADE)  # 댓글 작성자
     c_content = models.CharField(max_length=100)  # 댓글 내용
     # board라는 class variable은 실제 table이 생성되면
     # board_id라는 이름의 column으로 생성되고 ForeignKey로 설정되요!

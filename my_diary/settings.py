@@ -83,9 +83,9 @@ WSGI_APPLICATION = 'my_diary.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'my_diary_db',
+        'NAME': 'my_diary_db_test',
         'USER': 'root',
-        'PASSWORD': 'yu974346!',
+        'PASSWORD': 'whwotjd123',
         'HOST': '127.0.0.1',
         'PORT': '3306'
     }
@@ -141,3 +141,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'

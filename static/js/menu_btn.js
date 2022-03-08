@@ -25,7 +25,7 @@ function  like_post() {
 function create_comment() {
     $.ajax({
         async: true,
-        url: "/bbs/createComment/",
+        url: "/diary_main/createComment/",
         type: 'GET',
         data: {
             // 댓글에대한 게시글 id, 댓글에대한 작성자, 댓글 내용이 필요
@@ -63,7 +63,7 @@ function create_comment() {
                 $.ajax({
                     // key와 value널어서 삭제해 주자!
                     async: true,
-                    url:'/bbs/commentDelete',
+                    url:'/diary_main/commentDelete',
                     type: 'GET',
                     data: {
                         comment_id: result['c_id']

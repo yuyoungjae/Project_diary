@@ -25,7 +25,7 @@ class BoardForm(forms.ModelForm):
             'b_title': forms.TextInput(
                 attrs={
                     'class': 'form-control w-50',
-                             'placeholder': '제목을 입력하세요!'
+                    'placeholder': '제목을 입력하세요!'
                 }
             ),
             'b_author': forms.TextInput(

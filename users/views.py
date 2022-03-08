@@ -56,22 +56,6 @@ def login_process(request):
         return render(request, 'users/login.html')
 
 
-# 회원가입
-'''
-def signup(request):
-    if request.method == "POST":
-        print(request.POST)
-        if request.POST['password1'] == request.POST['password2']:
-            user = Member.objects.create_user(
-                username=request.POST["username"],
-                nickname=request.POST["nickname"],
-                password=request.POST["password1"],
-                image=request.FILES["image"]
-            )
-            user.save()
-        return redirect("users:login")
-    return render(request, "users/signup_test.html")
-'''
 
 
 def signup2(request):

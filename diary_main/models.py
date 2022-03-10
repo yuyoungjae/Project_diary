@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from users.models import Member
 
 # class명이 Board이면 만들어지는 실제 table이름은 bbs_board이 되요!
 # class는 반드시 장고가 제공하는 class를 상속받아서 만들어야 해요!
@@ -27,7 +28,7 @@ class Board(models.Model):
 
 
 class Comment(models.Model):
-    c_author = models.CharField(max_length=20)  # 댓글 작성자
+    c_author = models.ForeignKey(Member, on_delete=models.CASCADE)  # 댓글 작성자
     c_content = models.CharField(max_length=100)  # 댓글 내용
     # board라는 class variable은 실제 table이 생성되면
     # board_id라는 이름의 column으로 생성되고 ForeignKey로 설정되요!

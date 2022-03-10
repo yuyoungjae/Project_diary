@@ -31,8 +31,9 @@ class BoardForm(forms.ModelForm):
             ),
             'b_author': forms.TextInput(
                 attrs={
-                    'readonly class': 'form-control w-25',
-                    'value': Member.nickname
+                    'class': 'form-control w-25',
+                    'placeholder': '작성자를 입력하세요!'
+                    # 'value': Member.nickname
                 }
             ),
             'b_content': forms.Textarea(

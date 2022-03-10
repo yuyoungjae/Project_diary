@@ -16,6 +16,7 @@ def b_list(request):
     # else:
     #     return redirect('home')
 
+
 @require_http_methods(['GET', 'POST'])
 def b_create(request):
     # if not request.session.get('users_member'):
@@ -47,7 +48,8 @@ def b_create(request):
             # new_post = board_form.save(commit=False)  # 실제로 저장되지 않아요. 대신 객체를 리턴해요
             # new_post.b_like_count = 10
             # new_post.save()
-            return redirect('diary_main:b_list',)
+            return redirect('diary_main:b_list')
+
 
 @require_safe
 def b_detail(request, board_id):

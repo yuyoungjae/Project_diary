@@ -72,7 +72,6 @@ def b_detail(request, board_id):
     return render(request, 'diary_main/detail.html', context)
 
 
-
 # def b_delete(request):
 #     # QueryString으로 전달된 삭제할 글 번호부터 뽑아요
 #     post_id = request.GET['post_id']

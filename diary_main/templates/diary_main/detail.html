@@ -156,7 +156,7 @@
         <tbody>
             {% for comment in comments %}
             <tr>
-                <td>{{ comment.c_author }}</td>
+                <td id="content">{{ comment.c_author }}</td>
                 <td>{{ comment.c_content }}</td>
                 <td><button class="btn btn-danger">삭제</button></td>
             </tr>

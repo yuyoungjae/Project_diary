@@ -124,4 +124,3 @@ class BoardUpdateForm(forms.ModelForm):
 
         }
 
-

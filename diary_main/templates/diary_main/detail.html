@@ -1,12 +1,22 @@
 {% extends 'base.html' %}
 {% load bootstrap4 %}
-
+{% load static %}
 {% block html_header %}
+
 <script src="/static/js/menu_btn.js"></script>
 <style>
     .img_size {
         width: 300px;
         height: 300px;
+    }
+
+    .btn_btween {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        align-items: stretch;
+        align-content: stretch;
     }
 </style>
 {% endblock %}
@@ -30,7 +40,7 @@
                         <a class="nav-link" href="/howtouse/">how to use</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="/dashboard/">DashBoard</a>
+                        <a class="nav-link active" aria-current="page" href="/diary_main/list/">DashBoard</a>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -57,7 +67,11 @@
 
                             {% if request.user.is_authenticated %}
                             {{ user.nickname }}
-                            <img src="{{ user.image.url }}" width="50" height="50">
+                            {% if user.image.url == True %}
+                                <img class="box" src="{{ user.image.url }}" width="50" height="50">
+                            {% else %}
+                                <img class="box" src="{% static 'img/default_profile.png' %}" width="50" height="50">
+                            {% endif %}
                             <a class="btn btn-lg btn-danger" href="/users/logout/">logout</a>
 
                             {% else %}
@@ -126,33 +140,41 @@
                value="{{ user.nickname }}">
         {% if request.user.is_authenticated %}
         <label for="c_content">내용</label>
-        <input type="text"
-               class="form-control w-50"
-               id="c_content">
-        <button type="button"
-                class="btn btn-info"
-                onclick="create_comment()">댓글 등록
-        </button>
+        <div class="btn_btween" style="display: flex;flex-direction: row">
+            <input type="text"
+                   class="form-control w-75"
+                   id="c_content">
+            <div>
+                <button type="button"
+                        class="btn btn-info"
+                        style="float:right"
+                        onclick="create_comment()">댓글 등록
+                </button>
+            </div>
+        </div>
+        <br>
         {% endif %}
-
+        <br>
         <table class="table table-hover">
             <thead class="thread-dark">
             <tr>
                 <th scope="col" hidden>#</th>
                 <th scope="col">댓글 작성자</th>
-                <th scope="col">댓글 내용</th>
-                <th scope="col">삭제</th>
+                <th scope="col" style="text-align: center">댓글 내용</th>
+                <th scope="col" style="text-align: right">삭제</th>
             </tr>
             </thead>
             <tbody>
             {% for comment in comments %}
-            <tr id="coment_id_head">
-                <td hidden id="coment_id">{{ comment.id }}</td>
+            <tr id="comment_id_head">
+                <td hidden id="comment_id">{{ comment.id }}</td>
                 <td>{{ comment.c_author }}</td>
                 <td>{{ comment.c_content }}</td>
-                <td>
-                    <button class="btn btn-danger" onclick="delete_coment()">삭제</button>
+                {% if comment.c_author == user.nickname %}
+                <td style="text-align: right">
+                    <button class="btn btn-danger" onclick="delete_comment()">삭제</button>
                 </td>
+                {% endif %}
             </tr>
             {% endfor %}
             </tbody>

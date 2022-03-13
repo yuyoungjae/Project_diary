@@ -8,6 +8,7 @@ from django.views.decorators.http import require_safe
 
 def b_list(request):
     posts = Board.objects.all().order_by('-id')
+
     context = {
         "posts": posts
     }

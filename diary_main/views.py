@@ -5,13 +5,13 @@ from django.http import JsonResponse
 from django.views.decorators.http import require_http_methods
 from django.views.decorators.http import require_safe
 
+
 def b_list(request):
     posts = Board.objects.all().order_by('-id')
     context = {
         "posts": posts
     }
     return render(request, 'diary_main/list.html', context)
-
 
 
 @require_http_methods(['GET', 'POST'])
@@ -67,8 +67,6 @@ def b_detail(request, board_id):
     return render(request, 'diary_main/detail.html', context)
 
 
-
-
 def b_delete(request):
     # QueryString으로 전달된 삭제할 글 번호부터 뽑아요
     post_id = request.GET['post_id']
@@ -99,6 +97,9 @@ def create_comment(request):
     comment.c_author = request.GET['comment_author']
     comment.c_content = request.GET['comment_content']
     comment.board_id = request.GET['board_id']
+
+    if not comment.c_content:
+        return redirect('diary_main:b_detail')
 
     comment.save()
 

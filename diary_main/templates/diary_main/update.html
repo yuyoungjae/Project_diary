@@ -57,11 +57,7 @@
 
                             {% if request.user.is_authenticated %}
                             {{ user.nickname }}
-                            {% if user.image.url == True %}
-                                <img class="box" src="{{ user.image.url }}" width="50" height="50">
-                            {% else %}
-                                <img class="box" src="{% static 'img/default_profile.png' %}" width="50" height="50">
-                            {% endif %}
+                            <img class="box" src="{{ user.image.url }}" width="50" height="50">
                             <a class="btn btn-lg btn-danger" href="/users/logout/">logout</a>
 
                             {% else %}

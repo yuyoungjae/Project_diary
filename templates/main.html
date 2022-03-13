@@ -1,6 +1,7 @@
 
 <!doctype html>
 <html lang="en">
+{% load static %}
 <head>
     <meta charset="utf-8">
     <title>7log</title>
@@ -47,6 +48,13 @@
                 font-size: 3.5rem;
             }
         }
+
+        .box {
+            width: 50px;
+            height: 50px;
+            border-radius: 70%;
+            overflow: hidden;
+        }
     </style>
 
 
@@ -71,7 +79,7 @@
                         <a class="nav-link" href="/howtouse/">how to use</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" aria-current="page" href="/dashboard/">DashBoard</a>
+                        <a class="nav-link" aria-current="page" href="/diary_main/list/">DashBoard</a>
                     </li>
                 </ul>
                 <form class="d-flex">
@@ -101,7 +109,11 @@
 
                             {% if request.user.is_authenticated %}
                             {{ user.nickname }}
-                            <img src="{{ user.image.url }}" width="50" height="50">
+                            {% if user.image.url == True %}
+                                <img class="box" src="{{ user.image.url }}" width="50" height="50">
+                            {% else %}
+                                <img class="box" src="{% static 'img/default_profile.png' %}" width="50" height="50">
+                            {% endif %}
                             <a class="btn btn-lg btn-danger" href="/users/logout/">logout</a>
 
                             {% else %}

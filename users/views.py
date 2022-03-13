@@ -87,8 +87,8 @@ def signup2(request):
 
         print(password != password2)
 
-        if not (username and nickname and password and password2):
-            messages.warning(request, "프로필 사진을 제외한 모든 칸을 채워주세용!")
+        if not (username and nickname and password and password2 and image):
+            messages.warning(request, "모든 칸을 채워주세용!")
             return redirect('users:signup')
 
         elif password != password2:

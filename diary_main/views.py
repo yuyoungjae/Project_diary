@@ -98,6 +98,9 @@ def create_comment(request):
     comment.c_content = request.GET['comment_content']
     comment.board_id = request.GET['board_id']
 
+    if not comment.c_content:
+        return redirect('diary_main:b_detail')
+
     comment.save()
 
     # AJAX로 호출되었기 때문에 그 결과가 JSON으로 나가야해요
